@@ -9,15 +9,14 @@ app.use(express.json());
 
 // Routes
 app.use("/api/posts", require("./src/routes/post"));
+app.use("/api/users", require("./src/routes/user"));
 
 // Database
 mongoose
-  .connect(
-    "mongodb+srv://isabellouiseph:ABtc81ijT0dwxDEr@cluster0.9rtuler.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
     app.listen("4000", () => {
-      console.log(`Listening on port 4000 and connected to MongoDB`);
+      console.log(`Listening on port ${process.env.PORT} and connected to MongoDB`);
     });
   })
   .catch((error) => {
